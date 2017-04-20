@@ -1,7 +1,5 @@
 Download
 --------
-You can download a jar from GitHub's [releases page][1].
-
 Use Gradle:
 
 ```gradle
@@ -10,7 +8,7 @@ dependencies {
     compile 'com.github.QuarkWorks:RoundedFrameLayout-Android:0.2'
 }
 ```
-How do I use Glide?
+How do I use?
 -------------------
 Configure radius in layout xml file:
 ```xml
