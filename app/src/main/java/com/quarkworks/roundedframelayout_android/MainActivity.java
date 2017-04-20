@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.quarkworks.roundedframelayout.RoundedFrameLayout;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
@@ -17,9 +19,13 @@ public class MainActivity extends AppCompatActivity {
     EditText inputEditText;
     Button leftButton;
     View refreshButton;
+    RoundedFrameLayout refreshButtonContainer;
     RecyclerView recyclerView;
+
     MyAdapter adapter;
     ArrayList<Comment> comments;
+
+    Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         inputEditText = (EditText) composeContainer.findViewById(R.id.input_edit_text);
         leftButton = (Button) composeContainer.findViewById(R.id.left_button);
         refreshButton = composeContainer.findViewById(R.id.refresh_button);
+        refreshButtonContainer = (RoundedFrameLayout) findViewById(R.id.refresh_button_container);
+
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,10 +48,17 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView.scrollToPosition(adapter.getItemCount() - 1);
             }
         });
+
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 adapter.notifyDataSetChanged();
+
+                refreshButtonContainer.setCornerRadiusTopLeft(random.nextInt(31));
+                refreshButtonContainer.setCornerRadiusTopRight(random.nextInt(31));
+                refreshButtonContainer.setCornerRadiusBottomRight(random.nextInt(31));
+                refreshButtonContainer.setCornerRadiusBottomLeft(random.nextInt(31));
+                refreshButtonContainer.requestLayout();
             }
         });
 

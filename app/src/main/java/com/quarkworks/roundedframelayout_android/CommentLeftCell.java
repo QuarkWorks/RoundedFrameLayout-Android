@@ -12,8 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 /**
  * Created by zekunwang on 4/17/17.
  */
@@ -59,10 +57,7 @@ public class CommentLeftCell extends FrameLayout {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
 
-                Glide.with(getContext()).load(imageResId)
-                        // Using placeholder causes the issue
-                        .placeholder(R.drawable.placeholder)
-                        .into(profileImageView);
+                profileImageView.setImageResource(imageResId);
             }
         });
     }
@@ -89,10 +84,7 @@ public class CommentLeftCell extends FrameLayout {
                 break;
         }
 
-        Glide.with(getContext()).load(imageResId)
-                // Using placeholder causes the issue
-                .placeholder(R.drawable.placeholder)
-                .into(profileImageView);
+        profileImageView.setImageResource(imageResId);
         commentTextView.setText(comment.textString);
     }
 }

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:clipChildren="false">
+    tools:context=".MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -31,22 +30,38 @@
             android:layout_weight="1"
             android:text="Left"/>
 
-        <EditText
-            android:id="@+id/input_edit_text"
+        <com.quarkworks.roundedframelayout.RoundedFrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="4"
-            android:inputType="textMultiLine"/>
+            android:layout_margin="4dp"
+
+            app:cornerRadius="10dp"
+            app:borderWidth="4dp"
+            app:borderColor="#0000ff">
+
+            <EditText
+                android:id="@+id/input_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:inputType="textMultiLine"/>
+
+        </com.quarkworks.roundedframelayout.RoundedFrameLayout>
 
         <com.quarkworks.roundedframelayout.RoundedFrameLayout
+            android:id="@+id/refresh_button_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
 
             android:layout_weight="1"
             android:layout_margin="4dp"
-            android:clipChildren="false"
-            android:clipToPadding="false">
+
+            app:cornerRadiusTopLeft="10dp"
+            app:cornerRadiusTopRight="20dp"
+            app:cornerRadiusBottomLeft="20dp"
+            app:cornerRadiusBottomRight="10dp"
+            app:borderWidth="2dp">
 
             <ImageButton
                 android:id="@+id/refresh_button"

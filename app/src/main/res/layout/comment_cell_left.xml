@@ -4,14 +4,12 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="20dp"
-
-    android:background="#888888">
+    android:padding="20dp">
 
     <FrameLayout
         android:id="@+id/profile_image_container"
         android:layout_width="44dp"
-        android:layout_height="0dp"
+        android:layout_height="44dp"
         android:layout_alignTop="@+id/comment_text_container"
         android:layout_alignBottom="@+id/comment_text_container">
 
@@ -29,13 +27,14 @@
         android:id="@+id/comment_text_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/profile_image_container">
+        android:layout_toRightOf="@+id/profile_image_container">
 
         <TextView
             android:id="@+id/comment_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:background="#00FF00"/>
 
     </RelativeLayout>
 
