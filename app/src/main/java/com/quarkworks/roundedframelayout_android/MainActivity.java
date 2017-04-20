@@ -54,10 +54,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 adapter.notifyDataSetChanged();
 
+                //setCornerRadius() will set to four corners
+                //refreshButtonContainer.setCornerRadius(20);
+
                 refreshButtonContainer.setCornerRadiusTopLeft(random.nextInt(31));
                 refreshButtonContainer.setCornerRadiusTopRight(random.nextInt(31));
-                refreshButtonContainer.setCornerRadiusBottomRight(random.nextInt(31));
                 refreshButtonContainer.setCornerRadiusBottomLeft(random.nextInt(31));
+                refreshButtonContainer.setCornerRadiusBottomRight(random.nextInt(31));
                 refreshButtonContainer.requestLayout();
             }
         });

@@ -147,48 +147,48 @@ public class RoundedFrameLayout extends FrameLayout {
         this.borderColor = borderColor;
     }
 
-    public float getBorderWidth() {
-        return borderWidth;
+    public int getBorderWidth() {
+        return pxToDp(borderWidth);
     }
 
-    public void setBorderWidth(float borderWidth) {
-        this.borderWidth = borderWidth;
+    public void setBorderWidth(int dp) {
+        this.borderWidth = dpToPx(dp);
     }
 
-    public float getCornerRadius() {
-        return cornerRadius;
+    public int getCornerRadius() {
+        return pxToDp(cornerRadius);
     }
 
-    public void setCornerRadius(float cornerRadius) {
-        this.cornerRadius = cornerRadius;
+    public void setCornerRadius(int dp) {
+        this.cornerRadius = dpToPx(dp);
     }
 
-    public float getCornerRadiusTopLeft() {
-        return cornerRadiusTopLeft;
+    public int getCornerRadiusTopLeft() {
+        return pxToDp(cornerRadiusTopLeft);
     }
 
     public void setCornerRadiusTopLeft(int dp) {
         this.cornerRadiusTopLeft = dpToPx(dp);
     }
 
-    public float getCornerRadiusTopRight() {
-        return cornerRadiusTopRight;
+    public int getCornerRadiusTopRight() {
+        return pxToDp(cornerRadiusTopRight);
     }
 
     public void setCornerRadiusTopRight(int dp) {
         this.cornerRadiusTopRight = dpToPx(dp);
     }
 
-    public float getCornerRadiusBottomRight() {
-        return cornerRadiusBottomRight;
+    public int getCornerRadiusBottomRight() {
+        return pxToDp(cornerRadiusBottomRight);
     }
 
     public void setCornerRadiusBottomRight(int dp) {
         this.cornerRadiusBottomRight = dpToPx(dp);
     }
 
-    public float getCornerRadiusBottomLeft() {
-        return cornerRadiusBottomLeft;
+    public int getCornerRadiusBottomLeft() {
+        return pxToDp(cornerRadiusBottomLeft);
     }
 
     public void setCornerRadiusBottomLeft(int dp) {
@@ -198,5 +198,10 @@ public class RoundedFrameLayout extends FrameLayout {
     private float dpToPx(int dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         return dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    private int pxToDp(float px) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

@@ -63,6 +63,7 @@
             app:cornerRadiusBottomRight="10dp"
             app:borderWidth="2dp">
 
+            <!--sub views-->
             <ImageButton
                 android:id="@+id/refresh_button"
                 android:layout_width="match_parent"
