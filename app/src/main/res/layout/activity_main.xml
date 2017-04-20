@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:clipChildren="false">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/compost_container"/>
+
+    <LinearLayout
+        android:id="@+id/compost_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <Button
+            android:id="@+id/left_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            android:text="Left"/>
+
+        <EditText
+            android:id="@+id/input_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="4"
+            android:inputType="textMultiLine"/>
+
+        <com.quarkworks.roundedframelayout.RoundedFrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <ImageButton
+                android:id="@+id/refresh_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:src="@drawable/image_1"/>
+
+        </com.quarkworks.roundedframelayout.RoundedFrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>
