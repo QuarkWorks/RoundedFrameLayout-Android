@@ -61,7 +61,8 @@
             app:cornerRadiusTopRight="20dp"
             app:cornerRadiusBottomLeft="20dp"
             app:cornerRadiusBottomRight="10dp"
-            app:borderWidth="2dp">
+            app:borderWidth="2dp"
+            app:borderColor="#ff0000">
 
             <!--sub views-->
             <ImageButton

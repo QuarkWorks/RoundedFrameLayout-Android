@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
 
 /**
@@ -50,6 +54,9 @@ public class RoundedFrameLayout extends FrameLayout {
 
     public RoundedFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        loadAttributes(context, attrs);
+
         initialize();
     }
 
@@ -86,13 +93,46 @@ public class RoundedFrameLayout extends FrameLayout {
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(borderWidth);
         borderPaint.setColor(borderColor);
+
+        // ViewOutlineProvider does not support clipping customized path
+        if (useViewOutlineProvider()) {
+            ViewOutlineProvider provider = new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+
+                    if (useViewOutlineProvider()) {
+                        outline.setRoundRect(0, 0, getWidth(), getHeight(), cornerRadius);
+                    }
+                }
+            };
+
+            setOutlineProvider(provider);
+            setClipToOutline(true);
+        }
+    }
+
+    private boolean useViewOutlineProvider() {
+        return cornerRadius >= 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
+
+        if (useViewOutlineProvider()) {
+            invalidateOutline();
+        }
     }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
 
+        // Path for border in both cases
         configurePath(getWidth(), getHeight());
-        canvas.clipPath(borderPath);
+
+        if (!useViewOutlineProvider()) {
+            canvas.clipPath(borderPath);
+        }
 
         super.dispatchDraw(canvas);
 
@@ -137,6 +177,8 @@ public class RoundedFrameLayout extends FrameLayout {
         borderPath.arcTo(oval, 90, 90);
 
         borderPath.rLineTo(0, -height + cornerRadiusBottomLeft + cornerRadiusTopLeft);
+
+        borderPath.close();
     }
 
     public int getBorderColor() {

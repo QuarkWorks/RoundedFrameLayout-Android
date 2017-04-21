@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="20dp">
 
-    <FrameLayout
+    <com.quarkworks.roundedframelayout.RoundedFrameLayout
         android:id="@+id/profile_image_container"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
         android:layout_alignTop="@+id/comment_text_container"
-        android:layout_alignBottom="@+id/comment_text_container">
+        android:layout_alignBottom="@+id/comment_text_container"
+
+        app:cornerRadius="10dp"
+        app:borderWidth="10dp"
+        app:borderColor="#000000"
+        >
 
         <ImageView
             android:id="@+id/profile_image_view"
@@ -21,7 +26,7 @@
             android:scaleType="centerCrop"
             />
 
-    </FrameLayout>
+    </com.quarkworks.roundedframelayout.RoundedFrameLayout>
 
     <RelativeLayout
         android:id="@+id/comment_text_container"
