@@ -57,7 +57,7 @@ public class RoundedFrameLayout extends FrameLayout {
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.RoundedFrameLayout);
 
-        borderColor = attributes.getColor(R.styleable.RoundedFrameLayout_borderColor, Color.BLACK);
+        borderColor = attributes.getColor(R.styleable.RoundedFrameLayout_borderColor, Color.TRANSPARENT);
         borderWidth = attributes.getDimension(R.styleable.RoundedFrameLayout_borderWidth, 0);
         cornerRadius = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadius, -1);
 
