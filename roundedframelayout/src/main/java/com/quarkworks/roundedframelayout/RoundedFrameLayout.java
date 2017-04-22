@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
 public class RoundedFrameLayout extends FrameLayout {
     private static final String TAG = RoundedFrameLayout.class.getSimpleName();
 
+    private int clippedBackgroundColor;
     private int borderColor;
     private float borderWidth;
     private float cornerRadius;
@@ -36,7 +37,6 @@ public class RoundedFrameLayout extends FrameLayout {
     private Path borderPath;
     private Paint borderPaint;
     private RectF oval;
-
 
     public RoundedFrameLayout(@NonNull Context context) {
         super(context);
@@ -64,6 +64,7 @@ public class RoundedFrameLayout extends FrameLayout {
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.RoundedFrameLayout);
 
+        clippedBackgroundColor = attributes.getColor(R.styleable.RoundedFrameLayout_clippedBackgroundColor, Color.TRANSPARENT);
         borderColor = attributes.getColor(R.styleable.RoundedFrameLayout_borderColor, Color.TRANSPARENT);
         borderWidth = attributes.getDimension(R.styleable.RoundedFrameLayout_borderWidth, 0);
         cornerRadius = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadius, -1);
@@ -132,6 +133,10 @@ public class RoundedFrameLayout extends FrameLayout {
 
         if (!useViewOutlineProvider()) {
             canvas.clipPath(borderPath);
+        }
+
+        if (clippedBackgroundColor != Color.TRANSPARENT) {
+            canvas.drawColor(clippedBackgroundColor);
         }
 
         super.dispatchDraw(canvas);

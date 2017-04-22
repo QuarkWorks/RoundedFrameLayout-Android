@@ -10,5 +10,6 @@
         <attr name="cornerRadiusBottomRight" format="dimension"/>
         <attr name="borderWidth" format="dimension"/>
         <attr name="borderColor" format="color"/>
+        <attr name="clippedBackgroundColor" format="color"/>
     </declare-styleable>
 </resources>
