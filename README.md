@@ -5,7 +5,7 @@ Use Gradle:
 ```gradle
 dependencies {
     // RoundedFrameLayout
-    compile 'com.github.QuarkWorks:RoundedFrameLayout-Android:0.3'
+    compile 'com.github.QuarkWorks:RoundedFrameLayout-Android:0.3.3'
 }
 ```
 How do I use?
