@@ -27,8 +27,12 @@ public class RoundedFrameLayout extends FrameLayout {
 
     private int clippedBackgroundColor;
     private int borderColor;
+    // Smooth drawn bound of RoundedFrameLayout when below LOLLIPOP
+    // Should be close to or same as background color
+    private int softBorderColor;
     private float borderWidth;
-    private float cornerRadius;
+    private float softBorderWidth = 1;  // 1 px just to activate Paint.ANTI_ALIAS_FLAG
+    private float cornerRadius;         // Will override four corners
     private float cornerRadiusTopLeft;
     private float cornerRadiusTopRight;
     private float cornerRadiusBottomRight;
@@ -67,7 +71,10 @@ public class RoundedFrameLayout extends FrameLayout {
         clippedBackgroundColor = attributes.getColor(R.styleable.RoundedFrameLayout_clippedBackgroundColor, Color.TRANSPARENT);
         borderColor = attributes.getColor(R.styleable.RoundedFrameLayout_borderColor, Color.TRANSPARENT);
         borderWidth = attributes.getDimension(R.styleable.RoundedFrameLayout_borderWidth, 0);
+        softBorderColor = attributes.getColor(R.styleable.RoundedFrameLayout_softBorderColor, Color.TRANSPARENT);
         cornerRadius = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadius, -1);
+
+        borderWidth = Math.max(0, borderWidth);
 
         // Valid cornerRadius has higher priority
         if (cornerRadius < 0) {
@@ -92,8 +99,6 @@ public class RoundedFrameLayout extends FrameLayout {
 
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(borderWidth);
-        borderPaint.setColor(borderColor);
 
         // ViewOutlineProvider does not support clipping customized path
         if (useViewOutlineProvider()) {
@@ -141,7 +146,16 @@ public class RoundedFrameLayout extends FrameLayout {
 
         super.dispatchDraw(canvas);
 
+        borderPaint.setColor(borderColor);
+        borderPaint.setStrokeWidth(borderWidth);
         canvas.drawPath(borderPath, borderPaint);
+
+        if (softBorderColor != Color.TRANSPARENT) {
+
+            borderPaint.setColor(softBorderColor);
+            borderPaint.setStrokeWidth(softBorderWidth);
+            canvas.drawPath(borderPath, borderPaint);
+        }
     }
 
     private void configurePath (int width, int height) {
@@ -200,6 +214,22 @@ public class RoundedFrameLayout extends FrameLayout {
 
     public void setBorderWidth(int dp) {
         this.borderWidth = dpToPx(dp);
+    }
+
+    public int getSoftBorderColor() {
+        return softBorderColor;
+    }
+
+    public void setSoftBorderColor(int softBorderColor) {
+        this.softBorderColor = softBorderColor;
+    }
+
+    public int getClippedBackgroundColor() {
+        return clippedBackgroundColor;
+    }
+
+    public void setClippedBackgroundColor(int clippedBackgroundColor) {
+        this.clippedBackgroundColor = clippedBackgroundColor;
     }
 
     public int getCornerRadius() {

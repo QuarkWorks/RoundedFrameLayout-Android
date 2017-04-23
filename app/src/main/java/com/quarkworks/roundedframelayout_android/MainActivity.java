@@ -1,5 +1,6 @@
 package com.quarkworks.roundedframelayout_android;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
                 refreshButtonContainer.setCornerRadiusTopRight(random.nextInt(31));
                 refreshButtonContainer.setCornerRadiusBottomLeft(random.nextInt(31));
                 refreshButtonContainer.setCornerRadiusBottomRight(random.nextInt(31));
+
+                refreshButtonContainer.setClippedBackgroundColor(Color.RED);
+                refreshButtonContainer.setBorderColor(Color.BLACK);
+                refreshButtonContainer.setBorderWidth(4);
+
+                // Smooth drawn bound of RoundedFrameLayout when below LOLLIPOP
+                // Should be close to or same as background color
+                refreshButtonContainer.setSoftBorderColor(Color.WHITE);
+
                 refreshButtonContainer.requestLayout();
             }
         });

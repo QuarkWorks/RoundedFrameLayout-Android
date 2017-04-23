@@ -11,5 +11,6 @@
         <attr name="borderWidth" format="dimension"/>
         <attr name="borderColor" format="color"/>
         <attr name="clippedBackgroundColor" format="color"/>
+        <attr name="softBorderColor" format="color"/>
     </declare-styleable>
 </resources>
