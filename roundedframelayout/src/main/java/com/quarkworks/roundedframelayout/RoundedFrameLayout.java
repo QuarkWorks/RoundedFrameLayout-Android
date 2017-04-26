@@ -172,32 +172,36 @@ public class RoundedFrameLayout extends FrameLayout {
 //            return;
 //        }
 
-        // Top left circle
-        oval.set(0, 0, 2 * cornerRadiusTopLeft, 2 * cornerRadiusTopLeft);
-        borderPath.moveTo(0, cornerRadiusTopLeft);
-        borderPath.arcTo(oval, -180, 90);
+//        // Top left circle
+//        oval.set(0, 0, 2 * cornerRadiusTopLeft, 2 * cornerRadiusTopLeft);
+//        borderPath.moveTo(0, cornerRadiusTopLeft);
+//        borderPath.arcTo(oval, -180, 90);
+//
+//        borderPath.rLineTo(width - cornerRadiusTopLeft - cornerRadiusTopRight, 0);
+//
+//        // Top right circle
+//        oval.set(width - 2 * cornerRadiusTopRight, 0, width, 2 * cornerRadiusTopRight);
+//        borderPath.arcTo(oval, -90, 90);
+//
+//        borderPath.rLineTo(0, height - cornerRadiusTopRight - cornerRadiusBottomRight);
+//
+//        // Bottom right circle
+//        oval.set(width - 2 * cornerRadiusBottomRight, height - 2 * cornerRadiusBottomRight, width, height);
+//        borderPath.arcTo(oval, 0, 90);
+//
+//        borderPath.rLineTo(-width + cornerRadiusBottomRight + cornerRadiusBottomLeft, 0);
+//
+//        // Bottom left circle
+//        oval.set(0, height - 2 * cornerRadiusBottomLeft, 2 * cornerRadiusBottomLeft, height);
+//        borderPath.arcTo(oval, 90, 90);
+//
+//        borderPath.rLineTo(0, -height + cornerRadiusBottomLeft + cornerRadiusTopLeft);
+//
+//        borderPath.close();
 
-        borderPath.rLineTo(width - cornerRadiusTopLeft - cornerRadiusTopRight, 0);
-
-        // Top right circle
-        oval.set(width - 2 * cornerRadiusTopRight, 0, width, 2 * cornerRadiusTopRight);
-        borderPath.arcTo(oval, -90, 90);
-
-        borderPath.rLineTo(0, height - cornerRadiusTopRight - cornerRadiusBottomRight);
-
-        // Bottom right circle
-        oval.set(width - 2 * cornerRadiusBottomRight, height - 2 * cornerRadiusBottomRight, width, height);
-        borderPath.arcTo(oval, 0, 90);
-
-        borderPath.rLineTo(-width + cornerRadiusBottomRight + cornerRadiusBottomLeft, 0);
-
-        // Bottom left circle
-        oval.set(0, height - 2 * cornerRadiusBottomLeft, 2 * cornerRadiusBottomLeft, height);
-        borderPath.arcTo(oval, 90, 90);
-
-        borderPath.rLineTo(0, -height + cornerRadiusBottomLeft + cornerRadiusTopLeft);
-
-        borderPath.close();
+        float[] cornerRadii = {cornerRadiusTopLeft, cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusTopRight,
+                cornerRadiusBottomRight, cornerRadiusBottomRight, cornerRadiusBottomLeft, cornerRadiusBottomLeft};
+        borderPath.addRoundRect(new RectF(0, 0, width, height), cornerRadii, Path.Direction.CW);
     }
 
     public int getBorderColor() {
