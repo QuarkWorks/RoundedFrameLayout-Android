@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Comment> comments;
 
     Random random = new Random();
+    boolean isFree = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +56,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 adapter.notifyDataSetChanged();
 
-                //setCornerRadius() will set to four corners
-                //refreshButtonContainer.setCornerRadius(20);
+                if (isFree) {
+                    refreshButtonContainer.setCornerRadiusTopLeft(random.nextInt(31));
+                    refreshButtonContainer.setCornerRadiusTopRight(random.nextInt(31));
+                    refreshButtonContainer.setCornerRadiusBottomLeft(random.nextInt(31));
+                    refreshButtonContainer.setCornerRadiusBottomRight(random.nextInt(31));
+                } else {
+                    //setCornerRadius() will set to four corners
+                    refreshButtonContainer.setCornerRadius(random.nextInt(31));
+                }
 
-                refreshButtonContainer.setCornerRadiusTopLeft(random.nextInt(31));
-                refreshButtonContainer.setCornerRadiusTopRight(random.nextInt(31));
-                refreshButtonContainer.setCornerRadiusBottomLeft(random.nextInt(31));
-                refreshButtonContainer.setCornerRadiusBottomRight(random.nextInt(31));
+                isFree = !isFree;
 
                 refreshButtonContainer.setClippedBackgroundColor(Color.RED);
                 refreshButtonContainer.setBorderColor(Color.BLACK);

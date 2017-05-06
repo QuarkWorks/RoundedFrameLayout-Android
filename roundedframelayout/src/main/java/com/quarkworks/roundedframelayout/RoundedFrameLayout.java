@@ -98,13 +98,14 @@ public class RoundedFrameLayout extends FrameLayout {
         borderPaint.setStyle(Paint.Style.STROKE);
 
         // ViewOutlineProvider does not support clipping customized path
-        if (useViewOutlineProvider()) {
+        if (canUseViewOutlineProvider()) {
             ViewOutlineProvider provider = new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
 
-                    if (useViewOutlineProvider()) {
-                        outline.setRoundRect(0, 0, getWidth(), getHeight(), cornerRadius);
+                    if (canUseViewOutlineProvider()) {
+                        float radius = Math.max(0, cornerRadius);
+                        outline.setRoundRect(0, 0, getWidth(), getHeight(), radius);
                     }
                 }
             };
@@ -114,15 +115,19 @@ public class RoundedFrameLayout extends FrameLayout {
         }
     }
 
-    private boolean useViewOutlineProvider() {
-        return cornerRadius >= 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    private boolean canUseViewOutlineProvider() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    private boolean shouldUseViewOutlineProvider() {
+        return cornerRadius >= 0 && canUseViewOutlineProvider();
     }
 
     @Override
     public void requestLayout() {
         super.requestLayout();
 
-        if (useViewOutlineProvider()) {
+        if (canUseViewOutlineProvider()) {
             invalidateOutline();
         }
     }
@@ -133,7 +138,8 @@ public class RoundedFrameLayout extends FrameLayout {
         // Path for border in both cases
         configurePath(getWidth(), getHeight());
 
-        if (!useViewOutlineProvider()) {
+        // Use outline provider as possible
+        if (!shouldUseViewOutlineProvider()) {
             canvas.clipPath(borderPath);
         }
 
@@ -270,6 +276,7 @@ public class RoundedFrameLayout extends FrameLayout {
     public void setCornerRadiusTopLeft(int dp) {
         if (dp >= 0) {
             this.cornerRadiusTopLeft = dpToPx(dp);
+            cornerRadius = -1;
         }
     }
 
@@ -280,6 +287,7 @@ public class RoundedFrameLayout extends FrameLayout {
     public void setCornerRadiusTopRight(int dp) {
         if (dp >= 0) {
             this.cornerRadiusTopRight = dpToPx(dp);
+            cornerRadius = -1;
         }
     }
 
@@ -290,6 +298,7 @@ public class RoundedFrameLayout extends FrameLayout {
     public void setCornerRadiusBottomRight(int dp) {
         if (dp >= 0) {
             this.cornerRadiusBottomRight = dpToPx(dp);
+            cornerRadius = -1;
         }
     }
 
@@ -300,6 +309,7 @@ public class RoundedFrameLayout extends FrameLayout {
     public void setCornerRadiusBottomLeft(int dp) {
         if (dp >= 0) {
             this.cornerRadiusBottomLeft = dpToPx(dp);
+            cornerRadius = -1;
         }
     }
 
