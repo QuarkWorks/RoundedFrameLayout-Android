@@ -74,19 +74,16 @@ public class RoundedFrameLayout extends FrameLayout {
         softBorderColor = attributes.getColor(R.styleable.RoundedFrameLayout_softBorderColor, Color.TRANSPARENT);
         cornerRadius = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadius, -1);
 
+        cornerRadiusTopLeft = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusTopLeft, 0);
+        cornerRadiusTopRight = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusTopRight, 0);
+        cornerRadiusBottomRight = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusBottomRight, 0);
+        cornerRadiusBottomLeft = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusBottomLeft, 0);
+
         borderWidth = Math.max(0, borderWidth);
 
         // Valid cornerRadius has higher priority
-        if (cornerRadius < 0) {
-            cornerRadiusTopLeft = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusTopLeft, 0);
-            cornerRadiusTopRight = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusTopRight, 0);
-            cornerRadiusBottomRight = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusBottomRight, 0);
-            cornerRadiusBottomLeft = attributes.getDimension(R.styleable.RoundedFrameLayout_cornerRadiusBottomLeft, 0);
-        } else {
-            cornerRadiusTopLeft = cornerRadius;
-            cornerRadiusTopRight = cornerRadius;
-            cornerRadiusBottomRight = cornerRadius;
-            cornerRadiusBottomLeft = cornerRadius;
+        if (cornerRadius >= 0) {
+            setAllCornerRadius();
         }
 
         attributes.recycle();
@@ -204,6 +201,25 @@ public class RoundedFrameLayout extends FrameLayout {
         borderPath.addRoundRect(new RectF(0, 0, width, height), cornerRadii, Path.Direction.CW);
     }
 
+    private void setAllCornerRadius() {
+        setAllCornerRadius(cornerRadius, cornerRadius, cornerRadius, cornerRadius);
+    }
+
+    public void setAllCornerRadius(int topLeft, int topRight, int bottomRight, int bottomLeft) {
+        setAllCornerRadius(dpToPx(topLeft), dpToPx(topRight), dpToPx(bottomRight), dpToPx(bottomLeft));
+    }
+
+    private void setAllCornerRadius(float topLeft, float topRight, float bottomRight, float bottomLeft) {
+        if (topLeft < 0 || topRight < 0 || bottomRight < 0 || bottomLeft < 0) {
+            return;
+        }
+
+        cornerRadiusTopLeft = topLeft;
+        cornerRadiusTopRight = topRight;
+        cornerRadiusBottomRight = bottomRight;
+        cornerRadiusBottomLeft = bottomLeft;
+    }
+
     public int getBorderColor() {
         return borderColor;
     }
@@ -237,11 +253,14 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public int getCornerRadius() {
-        return pxToDp(cornerRadius);
+        return pxToDp(Math.max(0, cornerRadius));
     }
 
     public void setCornerRadius(int dp) {
-        this.cornerRadius = dpToPx(dp);
+        if (dp >= 0) {
+            this.cornerRadius = dpToPx(dp);
+            setAllCornerRadius();
+        }
     }
 
     public int getCornerRadiusTopLeft() {
@@ -249,7 +268,9 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusTopLeft(int dp) {
-        this.cornerRadiusTopLeft = dpToPx(dp);
+        if (dp >= 0) {
+            this.cornerRadiusTopLeft = dpToPx(dp);
+        }
     }
 
     public int getCornerRadiusTopRight() {
@@ -257,7 +278,9 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusTopRight(int dp) {
-        this.cornerRadiusTopRight = dpToPx(dp);
+        if (dp >= 0) {
+            this.cornerRadiusTopRight = dpToPx(dp);
+        }
     }
 
     public int getCornerRadiusBottomRight() {
@@ -265,7 +288,9 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusBottomRight(int dp) {
-        this.cornerRadiusBottomRight = dpToPx(dp);
+        if (dp >= 0) {
+            this.cornerRadiusBottomRight = dpToPx(dp);
+        }
     }
 
     public int getCornerRadiusBottomLeft() {
@@ -273,7 +298,9 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusBottomLeft(int dp) {
-        this.cornerRadiusBottomLeft = dpToPx(dp);
+        if (dp >= 0) {
+            this.cornerRadiusBottomLeft = dpToPx(dp);
+        }
     }
 
     private float dpToPx(int dp) {
