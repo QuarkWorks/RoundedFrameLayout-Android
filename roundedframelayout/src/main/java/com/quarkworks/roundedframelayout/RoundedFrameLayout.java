@@ -13,7 +13,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
@@ -239,7 +239,13 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setBorderWidth(int dp) {
-        this.borderWidth = dpToPx(dp);
+        setBorderWidth(dpToPx(dp));
+    }
+
+    public void setBorderWidth(float px) {
+        if (px >= 0) {
+            this.borderWidth = px;
+        }
     }
 
     public int getSoftBorderColor() {
@@ -263,8 +269,12 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadius(int dp) {
-        if (dp >= 0) {
-            this.cornerRadius = dpToPx(dp);
+        setCornerRadius(dpToPx(dp));
+    }
+
+    public void setCornerRadius(float px) {
+        if (px >= 0) {
+            this.cornerRadius = px;
             setAllCornerRadius();
         }
     }
@@ -274,8 +284,12 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusTopLeft(int dp) {
-        if (dp >= 0) {
-            this.cornerRadiusTopLeft = dpToPx(dp);
+        setCornerRadiusTopLeft(dpToPx(dp));
+    }
+
+    public void setCornerRadiusTopLeft(float px) {
+        if (px >= 0) {
+            this.cornerRadiusTopLeft = px;
             cornerRadius = -1;
         }
     }
@@ -285,8 +299,11 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusTopRight(int dp) {
-        if (dp >= 0) {
-            this.cornerRadiusTopRight = dpToPx(dp);
+        setCornerRadiusTopRight(dpToPx(dp));
+    }
+    public void setCornerRadiusTopRight(float px) {
+        if (px >= 0) {
+            this.cornerRadiusTopRight = px;
             cornerRadius = -1;
         }
     }
@@ -296,8 +313,12 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusBottomRight(int dp) {
-        if (dp >= 0) {
-            this.cornerRadiusBottomRight = dpToPx(dp);
+        setCornerRadiusBottomRight(dpToPx(dp));
+    }
+
+    public void setCornerRadiusBottomRight(float px) {
+        if (px >= 0) {
+            this.cornerRadiusBottomRight = px;
             cornerRadius = -1;
         }
     }
@@ -307,19 +328,22 @@ public class RoundedFrameLayout extends FrameLayout {
     }
 
     public void setCornerRadiusBottomLeft(int dp) {
-        if (dp >= 0) {
-            this.cornerRadiusBottomLeft = dpToPx(dp);
+        setCornerRadiusBottomLeft(dpToPx(dp));
+    }
+
+    public void setCornerRadiusBottomLeft(float px) {
+        if (px >= 0) {
+            this.cornerRadiusBottomLeft = px;
             cornerRadius = -1;
         }
     }
 
     private float dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        return dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT);
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getContext().getResources().getDisplayMetrics());
     }
 
     private int pxToDp(float px) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return (int) (px / getContext().getResources().getDisplayMetrics().density);
     }
 }
